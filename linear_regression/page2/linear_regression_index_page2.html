@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Exploratory data analysis</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="linear_regression_style_page2.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="LML.png" />
+<link href='https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'>
+<script src="linear_regression_json_page2.js"></script>
+</head>
+<body>
+<header id="header">
+   <a class='logo' href='#'>LearnML<span class='dotcom'>.com</span></a>
+           <div class="programing_blog" style="font-family:'Segoe UI',Arial,sans-serif">
+                A Programming Blog
+         </div>
+</header>
+<nav class="topnav">
+<a href="../../index.html"><i class="fa fa-fw fa-home"></i>Home</a>
+<a class="active" href="../page1/linear_regression_index_page1.html"><i class="fa fa-line-chart" aria-hidden="true"></i> Linear Regression</a>
+<a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+<a href="#"><i class="fa fa-user" aria-hidden="true"></i> About</a>
+<a class="top-nav-right" href="#">Login</a>
+<a class="top-nav-right" href="#">Signup</a>
+</nav>
+<!-- scroll progress bar -->
+<div class="progress-container scroll-indicator">
+  <div class="progress-bar" id="myBar"></div>
+</div>
+
+<div class="flex-container">
+
+  <section class="flux_box_one side_navbar">
+    <div class="options">
+      <ul class="sidenav_parent" > <a href="../page1/linear_regression_index_page1.html"><span class="sidenav_parent_heading active">Linear Regression </span></a>
+        <li>
+            <ul class="sidenav_child1"><span class="sidenav_child1_heading active">Bostan Dataset</span>
+                <a href="#"><li class="_list active">Exploitary data analysis<i class="fa fa-arrow-right" aria-hidden="true"></i></li></a>
+                <a href="../page3/linear_regression_index_page3.html"><li class="_list">Correlation</li></a>
+                <a href="../page4/linear_regression_index_page4.html"><li class="_list">Fitting a Univariate Linear Regression</li></a>
+            </ul>
+      </ul>
+    </div>
+  </section>
+
+<section>  <!-- flex box2 -->
+
+        <section class="sections boston">
+        <h1><b>Boston Housing Dataset</b></h1>
+        <h4> Reference for the dataset: </h4>
+        <a target="_blank" href="https://scikit-learn.org/stable/datasets/index.html#boston-dataset"><button class="boston_dataset" type="button" >Boston house prices dataset </button></a>
+        <br>
+        <br>
+        <br><p>The Boston housing dataset is our sample dataset that provides median values of homes in different areas around Boston. Along with the median home values in $1000 (MEDV), crime (CRIM), nitric oxides concentration (NOX), the average number of rooms (RM), percentage of lower status of the population (LSTAT), and other features are provided. Our objective is to predict median home price (MEDV), the target in this scenario, using some features provided.</p>
+        <br><p>The data is built in scikit-learn and we will use load_boston to load the object that contains all the information.</p>
+        </section>
+
+        <section class="sections exploratory-data-analysis">
+            <h1><b>1) Exploratory Data Analysis</b></h1>
+            <p> Import the data of boston housing prices from sklearn using the syntax below and load the data into a variable</p>
+                <div class="set_of_code">
+                      <span id="py_input"> IN [1]: </span>
+                          <span class="code input">
+                                <span id='py_att'>from</span> sklearn.datasets <span id='py_att'>import</span> load_boston
+                          </span>
+                </div>
+                <div class="set_of_code">
+                        <span id="py_input"> IN [2]:</span>
+                        <span class="code input">
+                          boston_dataset <span id='py_operator'>=</span> load_boston()
+                       </span>
+                </div>
+
+                <div class="set_of_code">
+                      <span id="py_input"> IN [3]: </span>
+                      <span class="code input">
+                              <p id="py_comment">#LOAD DATA INTO THE PANDA DATAFRAME</p>
+                              <p>  <span id="py_att">import</span> pandas <span id="py_att">as pd </span></p> <p> boston <span id=py_operator>=</span>                          pd.DataFrame(boston_dataset.data,columns=boston_dataset.feature_names)</p>
+                              <p>boston</p>
+                      </span>
+                </div>
+                <br>
+
+                <div class="set_of_code">
+                  <br>
+                  <span id="py_output_table"> OUT [3]:</span>
+          <table border="1" class="dataframe">
+          <thead>
+            <tr style="text-align: right; font-weight:bold">
+              <th></th>
+              <th>CRIM</th>
+              <th>ZN</th>
+              <th>INDUS</th>
+              <th>CHAS</th>
+              <th>NOX</th>
+              <th>RM</th>
+              <th>AGE</th>
+              <th>DIS</th>
+              <th>RAD</th>
+              <th>TAX</th>
+              <th>PTRATIO</th>
+              <th>B</th>
+              <th>LSTAT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id='row_odd'>
+              <td>0</td>
+              <td>0.00632</td>
+              <td>18.0</td>
+              <td>2.31</td>
+              <td>0.0</td>
+              <td>0.538</td>
+              <td>6.575</td>
+              <td>65.2</td>
+              <td>4.0900</td>
+              <td>1.0</td>
+              <td>296.0</td>
+              <td>15.3</td>
+              <td>396.90</td>
+              <td>4.98</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>0.02731</td>
+              <td>0.0</td>
+              <td>7.07</td>
+              <td>0.0</td>
+              <td>0.469</td>
+              <td>6.421</td>
+              <td>78.9</td>
+              <td>4.9671</td>
+              <td>2.0</td>
+              <td>242.0</td>
+              <td>17.8</td>
+              <td>396.90</td>
+              <td>9.14</td>
+            </tr>
+            <tr id='row_odd'>
+              <td>2</td>
+              <td>0.02729</td>
+              <td>0.0</td>
+              <td>7.07</td>
+              <td>0.0</td>
+              <td>0.469</td>
+              <td>7.185</td>
+              <td>61.1</td>
+              <td>4.9671</td>
+              <td>2.0</td>
+              <td>242.0</td>
+              <td>17.8</td>
+              <td>392.83</td>
+              <td>4.03</td>
+            </tr>
+            <tr >
+              <td>3</td>
+              <td>0.03237</td>
+              <td>0.0</td>
+              <td>2.18</td>
+              <td>0.0</td>
+              <td>0.458</td>
+              <td>6.998</td>
+              <td>45.8</td>
+              <td>6.0622</td>
+              <td>3.0</td>
+              <td>222.0</td>
+              <td>18.7</td>
+              <td>394.63</td>
+              <td>2.94</td>
+            </tr>
+            <tr id='row_odd'>
+              <td>4</td>
+              <td>0.06905</td>
+              <td>0.0</td>
+              <td>2.18</td>
+              <td>0.0</td>
+              <td>0.458</td>
+              <td>7.147</td>
+              <td>54.2</td>
+              <td>6.0622</td>
+              <td>3.0</td>
+              <td>222.0</td>
+              <td>18.7</td>
+              <td>396.90</td>
+              <td>5.33</td>
+            </tr>
+            <tr >
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+            </tr>
+            <tr id='row_odd'>
+              <td>501</td>
+              <td>0.06263</td>
+              <td>0.0</td>
+              <td>11.93</td>
+              <td>0.0</td>
+              <td>0.573</td>
+              <td>6.593</td>
+              <td>69.1</td>
+              <td>2.4786</td>
+              <td>1.0</td>
+              <td>273.0</td>
+              <td>21.0</td>
+              <td>391.99</td>
+              <td>9.67</td>
+            </tr>
+            <tr>
+              <td>502</td>
+              <td>0.04527</td>
+              <td>0.0</td>
+              <td>11.93</td>
+              <td>0.0</td>
+              <td>0.573</td>
+              <td>6.120</td>
+              <td>76.7</td>
+              <td>2.2875</td>
+              <td>1.0</td>
+              <td>273.0</td>
+              <td>21.0</td>
+              <td>396.90</td>
+              <td>9.08</td>
+            </tr>
+            <tr id='row_odd'>
+              <td>503</td>
+              <td>0.06076</td>
+              <td>0.0</td>
+              <td>11.93</td>
+              <td>0.0</td>
+              <td>0.573</td>
+              <td>6.976</td>
+              <td>91.0</td>
+              <td>2.1675</td>
+              <td>1.0</td>
+              <td>273.0</td>
+              <td>21.0</td>
+              <td>396.90</td>
+              <td>5.64</td>
+            </tr>
+            <tr>
+              <td>504</td>
+              <td>0.10959</td>
+              <td>0.0</td>
+              <td>11.93</td>
+              <td>0.0</td>
+              <td>0.573</td>
+              <td>6.794</td>
+              <td>89.3</td>
+              <td>2.3889</td>
+              <td>1.0</td>
+              <td>273.0</td>
+              <td>21.0</td>
+              <td>393.45</td>
+              <td>6.48</td>
+            </tr>
+            <tr id='row_odd'>
+              <td>505</td>
+              <td>0.04741</td>
+              <td>0.0</td>
+              <td>11.93</td>
+              <td>0.0</td>
+              <td>0.573</td>
+              <td>6.030</td>
+              <td>80.8</td>
+              <td>2.5050</td>
+              <td>1.0</td>
+              <td>273.0</td>
+              <td>21.0</td>
+              <td>396.90</td>
+              <td>7.88</td>
+            </tr>
+          </tbody>
+        </table>
+         <div id='under_table_paragraph'>506 rows × 13 columns</div>
+        </div>
+
+          <div class="set_of_code">
+            <span id="py_input"> IN [4]: </span>
+            <span class="code input">
+              <p id="py_comment">#As the name suggests, boston_dataset.feature_names contain names for all features.</p>
+              <p id="py_comment">  #We then add the target into the DataFrame</p>
+              <p>boston[<span id="py_char">'MEDV'</span>] <span id="py_operator">=</span> boston_dataset.target</p>
+              <p>boston</p>
+            </span>
+          </div>
+        <br>
+          <div class="set_of_code">
+            <br>
+            <span id="py_output_table"> OUT [4]:</span>
+        <table border="1" class="dataframe">
+        <thead>
+        <tr style="text-align: right; font-weight:bold">
+        <th></th>
+        <th>CRIM</th>
+        <th>ZN</th>
+        <th>INDUS</th>
+        <th>CHAS</th>
+        <th>NOX</th>
+        <th>RM</th>
+        <th>AGE</th>
+        <th>DIS</th>
+        <th>RAD</th>
+        <th>TAX</th>
+        <th>PTRATIO</th>
+        <th>B</th>
+        <th>LSTAT</th>
+        <th>MEDV</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id='row_odd'>
+        <td>0</td>
+        <td>0.00632</td>
+        <td>18.0</td>
+        <td>2.31</td>
+        <td>0.0</td>
+        <td>0.538</td>
+        <td>6.575</td>
+        <td>65.2</td>
+        <td>4.0900</td>
+        <td>1.0</td>
+        <td>296.0</td>
+        <td>15.3</td>
+        <td>396.90</td>
+        <td>4.98</td>
+        <td>24.0</td>
+        </tr>
+        <tr>
+        <td>1</td>
+        <td>0.02731</td>
+        <td>0.0</td>
+        <td>7.07</td>
+        <td>0.0</td>
+        <td>0.469</td>
+        <td>6.421</td>
+        <td>78.9</td>
+        <td>4.9671</td>
+        <td>2.0</td>
+        <td>242.0</td>
+        <td>17.8</td>
+        <td>396.90</td>
+        <td>9.14</td>
+        <td>21.6</td>
+        </tr>
+        <tr id='row_odd'>
+        <td>2</td>
+        <td>0.02729</td>
+        <td>0.0</td>
+        <td>7.07</td>
+        <td>0.0</td>
+        <td>0.469</td>
+        <td>7.185</td>
+        <td>61.1</td>
+        <td>4.9671</td>
+        <td>2.0</td>
+        <td>242.0</td>
+        <td>17.8</td>
+        <td>392.83</td>
+        <td>4.03</td>
+        <td>34.7</td>
+        </tr>
+        <tr >
+        <td>3</td>
+        <td>0.03237</td>
+        <td>0.0</td>
+        <td>2.18</td>
+        <td>0.0</td>
+        <td>0.458</td>
+        <td>6.998</td>
+        <td>45.8</td>
+        <td>6.0622</td>
+        <td>3.0</td>
+        <td>222.0</td>
+        <td>18.7</td>
+        <td>394.63</td>
+        <td>2.94</td>
+        <td>33.4</td>
+        </tr>
+        <tr id='row_odd'>
+        <td>4</td>
+        <td>0.06905</td>
+        <td>0.0</td>
+        <td>2.18</td>
+        <td>0.0</td>
+        <td>0.458</td>
+        <td>7.147</td>
+        <td>54.2</td>
+        <td>6.0622</td>
+        <td>3.0</td>
+        <td>222.0</td>
+        <td>18.7</td>
+        <td>396.90</td>
+        <td>5.33</td>
+        <td>36.2</td>
+        </tr>
+        <tr >
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        </tr>
+        <tr id='row_odd'>
+        <td>501</td>
+        <td>0.06263</td>
+        <td>0.0</td>
+        <td>11.93</td>
+        <td>0.0</td>
+        <td>0.573</td>
+        <td>6.593</td>
+        <td>69.1</td>
+        <td>2.4786</td>
+        <td>1.0</td>
+        <td>273.0</td>
+        <td>21.0</td>
+        <td>391.99</td>
+        <td>9.67</td>
+        <td>22.4</td>
+        </tr>
+        <tr>
+        <td>502</td>
+        <td>0.04527</td>
+        <td>0.0</td>
+        <td>11.93</td>
+        <td>0.0</td>
+        <td>0.573</td>
+        <td>6.120</td>
+        <td>76.7</td>
+        <td>2.2875</td>
+        <td>1.0</td>
+        <td>273.0</td>
+        <td>21.0</td>
+        <td>396.90</td>
+        <td>9.08</td>
+        <td>20.6</td>
+        </tr>
+        <tr id='row_odd'>
+        <td>503</td>
+        <td>0.06076</td>
+        <td>0.0</td>
+        <td>11.93</td>
+        <td>0.0</td>
+        <td>0.573</td>
+        <td>6.976</td>
+        <td>91.0</td>
+        <td>2.1675</td>
+        <td>1.0</td>
+        <td>273.0</td>
+        <td>21.0</td>
+        <td>396.90</td>
+        <td>5.64</td>
+        <td>23.9</td>
+        </tr>
+        <tr>
+        <td>504</td>
+        <td>0.10959</td>
+        <td>0.0</td>
+        <td>11.93</td>
+        <td>0.0</td>
+        <td>0.573</td>
+        <td>6.794</td>
+        <td>89.3</td>
+        <td>2.3889</td>
+        <td>1.0</td>
+        <td>273.0</td>
+        <td>21.0</td>
+        <td>393.45</td>
+        <td>6.48</td>
+        <td>22.0</td>
+        </tr>
+        <tr id='row_odd'>
+        <td>505</td>
+        <td>0.04741</td>
+        <td>0.0</td>
+        <td>11.93</td>
+        <td>0.0</td>
+        <td>0.573</td>
+        <td>6.030</td>
+        <td>80.8</td>
+        <td>2.5050</td>
+        <td>1.0</td>
+        <td>273.0</td>
+        <td>21.0</td>
+        <td>396.90</td>
+        <td>7.88</td>
+        <td>11.9</td>
+        </tr>
+        </tbody>
+        </table>
+        <div id='under_table_paragraph'>506 rows × 13 columns</div>
+        </div>
+
+        <div class="set_of_code">
+          <span id="py_input"> IN [5]: </span>
+          <span class="code input">
+            <p id="py_comment">#The coloumns are </p>
+            <p>boston.columns</p>
+          </span>
+        </div>
+        <br>
+        <div class="set_of_code">
+          <span id="py_output"> OUT [5]:</span>
+          <span class="code output"><p>Index(['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX',
+               'PTRATIO', 'B', 'LSTAT', 'MEDV'],
+              dtype='object')</p>
+          </span>
+        </div>
+        <br>
+        <br>
+        <div class="set_of_code">
+          <span id="py_input"> IN [6]: </span>
+          <span class="code input">
+            <p>boston.head</p>
+          </span>
+        </div>
+        <div class="set_of_code" style="margin: -40px 0px 0px 0px;">
+          <span id="py_output_table"> OUT [6]:</span>
+        <table border="1" class="dataframe">
+        <thead>
+        <tr style="text-align: right; font-weight:bold">
+        <th></th>
+        <th>CRIM</th>
+        <th>ZN</th>
+        <th>INDUS</th>
+        <th>CHAS</th>
+        <th>NOX</th>
+        <th>RM</th>
+        <th>AGE</th>
+        <th>DIS</th>
+        <th>RAD</th>
+        <th>TAX</th>
+        <th>PTRATIO</th>
+        <th>B</th>
+        <th>LSTAT</th>
+        <th>MEDV</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id='row_odd'>
+        <td>0</td>
+        <td>0.00632</td>
+        <td>18.0</td>
+        <td>2.31</td>
+        <td>0.0</td>
+        <td>0.538</td>
+        <td>6.575</td>
+        <td>65.2</td>
+        <td>4.0900</td>
+        <td>1.0</td>
+        <td>296.0</td>
+        <td>15.3</td>
+        <td>396.90</td>
+        <td>4.98</td>
+        <td>24.0</td>
+        </tr>
+        <tr>
+        <td>1</td>
+        <td>0.02731</td>
+        <td>0.0</td>
+        <td>7.07</td>
+        <td>0.0</td>
+        <td>0.469</td>
+        <td>6.421</td>
+        <td>78.9</td>
+        <td>4.9671</td>
+        <td>2.0</td>
+        <td>242.0</td>
+        <td>17.8</td>
+        <td>396.90</td>
+        <td>9.14</td>
+        <td>21.6</td>
+        </tr>
+        <tr id='row_odd'>
+        <td>2</td>
+        <td>0.02729</td>
+        <td>0.0</td>
+        <td>7.07</td>
+        <td>0.0</td>
+        <td>0.469</td>
+        <td>7.185</td>
+        <td>61.1</td>
+        <td>4.9671</td>
+        <td>2.0</td>
+        <td>242.0</td>
+        <td>17.8</td>
+        <td>392.83</td>
+        <td>4.03</td>
+        <td>34.7</td>
+        </tr>
+        <tr >
+        <td>3</td>
+        <td>0.03237</td>
+        <td>0.0</td>
+        <td>2.18</td>
+        <td>0.0</td>
+        <td>0.458</td>
+        <td>6.998</td>
+        <td>45.8</td>
+        <td>6.0622</td>
+        <td>3.0</td>
+        <td>222.0</td>
+        <td>18.7</td>
+        <td>394.63</td>
+        <td>2.94</td>
+        <td>33.4</td>
+        </tr>
+        <tr id='row_odd'>
+        <td>4</td>
+        <td>0.06905</td>
+        <td>0.0</td>
+        <td>2.18</td>
+        <td>0.0</td>
+        <td>0.458</td>
+        <td>7.147</td>
+        <td>54.2</td>
+        <td>6.0622</td>
+        <td>3.0</td>
+        <td>222.0</td>
+        <td>18.7</td>
+        <td>396.90</td>
+        <td>5.33</td>
+        <td>36.2</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        <p><b> To check the first 5 rows, use boston.head(), for the ease of display, we select columns CHAS, RM, AGE, RAD, and MEDV</b> <p>
+          <div class="set_of_code">
+            <span id="py_input"> IN [7]: </span>
+            <span class="code input">
+              <p>boston[[<span id="py_char">'CHAS', 'RM', 'AGE', 'RAD', 'MEDV'</span>]].head()</p>
+            </span>
+          </div>
+          <div class="set_of_code" style="margin: -40px 0px 0px 0px;">
+            <span id="py_output_table"> OUT [7]:</span>
+          <table border="1" class="dataframe">
+          <thead>
+          <tr style="text-align: right; font-weight:bold">
+          <th></th>
+          <th>CHAS</th>
+          <th>RM</th>
+          <th>AGE</th>
+          <th>RAD</th>
+          <th>MEDV</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr id='row_odd'>
+          <td>0</td>
+          <td>0.0</td>
+          <td>0.538</td>
+          <td>6.575</td>
+          <td>1.0</td>
+          <td>24.0</td>
+          </tr>
+          <tr>
+          <td>1</td>
+          <td>0.0</td>
+          <td>0.469</td>
+          <td>6.421</td>
+          <td>2.0</td>
+          <td>21.6</td>
+          </tr>
+          <tr id='row_odd'>
+          <td>2</td>
+          <td>0.0</td>
+          <td>0.469</td>
+          <td>7.185</td>
+          <td>2.0</td>
+          <td>34.7</td>
+          </tr>
+          <tr >
+          <td>3</td>
+          <td>0.0</td>
+          <td>0.458</td>
+          <td>6.998</td>
+          <td>3.0</td>
+          <td>33.4</td>
+          </tr>
+          <tr id='row_odd'>
+          <td>4</td>
+          <td>0.0</td>
+          <td>0.458</td>
+          <td>7.147</td>
+          <td>3.0</td>
+          <td>36.2</td>
+          </tr>
+          </tbody>
+          </table>
+          </div>
+          <p style="font-size:17px;"><b>After scanning the values, CHAS and RAD appear to be integers, not floats. According to the description of the data, CHAS identifies if the property’s tract bounds a river (=1) or not (=0); and RAD is an accessibility index to radial highways.</b></p>
+
+        </section>
+
+        <section class="sections summary-statistics">
+          <h2><b>Summary Statistics</b></h2>
+          <div class="set_of_code">
+            <span id="py_input"> IN [8]: </span>
+            <span class="code input">
+                <p>boston.describe().round(<span id="py_num">2</span>)</p>
+            </span>
+          </div>
+        <br>
+          <div class="set_of_code">
+            <br>
+            <span id="py_output_table" style="top:-45px;"> OUT [8]:</span>
+      <div class="describe_table" style="font-size:13.26px; margin: -80px 0px 0px 0px;">
+        <table border="1" class="dataframe">
+        <thead>
+          <tr style="text-align: right;">
+            <th></th>
+            <th>CRIM</th>
+            <th>ZN</th>
+            <th>INDUS</th>
+            <th>CHAS</th>
+            <th>NOX</th>
+            <th>RM</th>
+            <th>AGE</th>
+            <th>DIS</th>
+            <th>RAD</th>
+            <th>TAX</th>
+            <th>PTRATIO</th>
+            <th>B</th>
+            <th>LSTAT</th>
+            <th>MEDV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="row_odd">
+            <td>count</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+            <td>506.00</td>
+          </tr>
+          <tr>
+            <td>mean</td>
+            <td>3.61</td>
+            <td>11.36</td>
+            <td>11.14</td>
+            <td>0.07</td>
+            <td>0.55</td>
+            <td>6.28</td>
+            <td>68.57</td>
+            <td>3.80</td>
+            <td>9.55</td>
+            <td>408.24</td>
+            <td>18.46</td>
+            <td>356.67</td>
+            <td>12.65</td>
+            <td>22.53</td>
+          </tr>
+          <tr id="row_odd">
+            <td>std</td>
+            <td>8.60</td>
+            <td>23.32</td>
+            <td>6.86</td>
+            <td>0.25</td>
+            <td>0.12</td>
+            <td>0.70</td>
+            <td>28.15</td>
+            <td>2.11</td>
+            <td>8.71</td>
+            <td>168.54</td>
+            <td>2.16</td>
+            <td>91.29</td>
+            <td>7.14</td>
+            <td>9.20</td>
+          </tr>
+          <tr id="row_odd">
+            <td>min</td>
+            <td>0.01</td>
+            <td>0.00</td>
+            <td>0.46</td>
+            <td>0.00</td>
+            <td>0.38</td>
+            <td>3.56</td>
+            <td>2.90</td>
+            <td>1.13</td>
+            <td>1.00</td>
+            <td>187.00</td>
+            <td>12.60</td>
+            <td>0.32</td>
+            <td>1.73</td>
+            <td>5.00</td>
+          </tr>
+          <tr>
+            <td>25%</td>
+            <td>0.08</td>
+            <td>0.00</td>
+            <td>5.19</td>
+            <td>0.00</td>
+            <td>0.45</td>
+            <td>5.89</td>
+            <td>45.02</td>
+            <td>2.10</td>
+            <td>4.00</td>
+            <td>279.00</td>
+            <td>17.40</td>
+            <td>375.38</td>
+            <td>6.95</td>
+            <td>17.02</td>
+          </tr>
+          <tr id="row_odd">
+            <td>50%</td>
+            <td>0.26</td>
+            <td>0.00</td>
+            <td>9.69</td>
+            <td>0.00</td>
+            <td>0.54</td>
+            <td>6.21</td>
+            <td>77.50</td>
+            <td>3.21</td>
+            <td>5.00</td>
+            <td>330.00</td>
+            <td>19.05</td>
+            <td>391.44</td>
+            <td>11.36</td>
+            <td>21.20</td>
+          </tr>
+          <tr>
+            <td>75%</td>
+            <td>3.68</td>
+            <td>12.50</td>
+            <td>18.10</td>
+            <td>0.00</td>
+            <td>0.62</td>
+            <td>6.62</td>
+            <td>94.07</td>
+            <td>5.19</td>
+            <td>24.00</td>
+            <td>666.00</td>
+            <td>20.20</td>
+            <td>396.22</td>
+            <td>16.96</td>
+            <td>25.00</td>
+          </tr>
+          <tr id="row_odd">
+            <td>max</td>
+            <td>88.98</td>
+            <td>100.00</td>
+            <td>27.74</td>
+            <td>1.00</td>
+            <td>0.87</td>
+            <td>8.78</td>
+            <td>100.00</td>
+            <td>12.13</td>
+            <td>24.00</td>
+            <td>711.00</td>
+            <td>22.00</td>
+            <td>396.90</td>
+            <td>37.97</td>
+            <td>50.00</td>
+          </tr>
+        </tbody>
+        </table>
+        </div>
+        </div>
+
+        <p><b>Binary CHAS has a mean of 0.07, and its 3rd quartile is 0. This indicates that most of the values in CHAS are 0. The average number of rooms per dwelling ranges from 3.56 to 8.78, with a mean of 6.28 and a median of 6.21. The distribution of RM appears symmetric.</b></p>
+        </section>
+
+        <section class="sections visualizing_the_data">
+              <h1><b>Visualizing the data</b></h1>
+              <p><b>Summary statistics</b> provides a general idea of each feature and the target, but visualization reveals the information more clearly. It’s a good practice to visualize and inspect the distribution column by column. Here we look at CHAS and RM to verify our conclusions from the last part.</p>
+              <br>
+              <div class="set_of_code">
+                <span id="py_input"> IN [8]: </span>
+                <span class="code input">
+                  <p><span id="py_att">import</span> matplotlib.pyplot <span id="py_att">as</span> plt  </p>
+                  <p>plt.style.use(<span id="py_char">'ggplot'</span>)</p>
+                  <p id="py_comment">#we are using ggplot to bring the visualization of R </p>
+                  <br>
+                  <p>boston.hist(column<span id="py_operator">=</span><span id="py_char">'CHAS'</span>,bins<span id="py_operator">=</span><span id="py_num">20</span>) </p>
+                  <p>plt.show() </p>
+                </span>
+              </div>
+              <br>
+              <div>
+              <img src="images/image1.png" style="margin:100px 100px 30px 100px;"></img>
+            </div>
+            <p><b>CHAS only takes on two values, 0 and 1, with most of them 0’s. It is consistent with what the describe() reports; specifically, the third quartile of CHAS is 0.</b></p>
+            <br>
+            <div class="set_of_code">
+              <span id="py_input"> IN [8]: </span>
+              <span class="code input">
+                <p>boston.hist(column<span id="py_operator>">=</span><span id="py_char">'RM'</span>,bins<span id="py_operator>">=</span><span id="py_num">20</span>) </p>
+                <p>plt.show()</p>
+              </span>
+              <div>
+              <img src="images/image2.png" style="margin:70px 100px 30px 100px;"></img>
+            </div>
+            </div>
+            <p>The distribution of RM appears <b>normal</b> and <b>symmetric</b>. The symmetry aligns with what we observed from the output of describe(), as the <b>mean of RM 6.28 is close to its median 6.21</b>.</p>
+        </section>
+</section>  <!-- flex box2 end -->
+
+
+
+<div class="next_prev_page_button">
+
+    <a href="../page3/linear_regression_index_page3.html"> <button id="next_button">Next</button></a>
+</div>
+
+
+<div class="footer">
+<h1>Be on touch for more models and projects</h1>
+<div class="mini_media">
+  <a href="https://www.linkedin.com/in/mohamed-ashik-badusha/"><img align="justify" alt="Ashik Linkdin" width="30px" src="https://firebasestorage.googleapis.com/v0/b/github--images.appspot.com/o/Github%20images%2Flinkedin.svg?alt=media&token=0e662ab8-db11-475a-9c43-18d89bcdfde0"/></a>
+  <a href="https://www.instagram.com/p.u.b.g_tamil/"><img align="justify" alt="Ashik Instagram" width="30px" src="https://firebasestorage.googleapis.com/v0/b/github--images.appspot.com/o/Github%20images%2Finstagram-sketched.svg?alt=media&token=ecd87a7d-17b0-464e-8c4f-ec446b86fd51"/></a>
+  <a href="https://github.com/Ashik-Phantom"><img align="justify" alt="Ashik Github" width="30px" src="https://firebasestorage.googleapis.com/v0/b/github--images.appspot.com/o/Github%20images%2F25231.svg?alt=media&token=ef2be627-04a6-4f80-afba-bf224281d35a"/></a>
+</div>
+</div>
+</body>
+</html>

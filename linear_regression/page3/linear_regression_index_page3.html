@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Correlation</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="linear_regression_style_page3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="LML.png" />
+<link href='https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'>
+<script src="linear_regression_json_page3.js"></script>
+</head>
+<body>
+<header id="header">
+   <a class='logo' href='#'>LearnML<span class='dotcom'>.com</span></a>
+           <div class="programing_blog" style="font-family:'Segoe UI',Arial,sans-serif">
+                A Programming Blog
+         </div>
+</header>
+<nav class="topnav">
+<a href="../../index.html"><i class="fa fa-fw fa-home"></i>Home</a>
+<a class="active" href="../page1/linear_regression_index_page1.html"><i class="fa fa-line-chart" aria-hidden="true"></i> Linear Regression</a>
+<a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+<a href="#"><i class="fa fa-user" aria-hidden="true"></i> About</a>
+<a class="top-nav-right" href="#">Login</a>
+<a class="top-nav-right" href="#">Signup</a>
+</nav>
+<!-- scroll progress bar -->
+<div class="progress-container scroll-indicator">
+  <div class="progress-bar" id="myBar"></div>
+</div>
+
+<div class="flex-container">
+
+  <section class="flux_box_one side_navbar">
+    <div class="options">
+      <ul class="sidenav_parent" > <a href="../page1/linear_regression_index_page1.html"><span class="sidenav_parent_heading active">Linear Regression </span></a>
+        <li>
+            <ul class="sidenav_child1"><span class="sidenav_child1_heading active">Bostan Dataset</span>
+                <a href="../page2/linear_regression_index_page2.html"><li class="_list">Exploitary data analysis</li></a>
+                <a href="#"><li class="_list active">Correlation <i class="fa fa-arrow-right" aria-hidden="true"></i></li></a>
+                <a href="../page4/linear_regression_index_page4.html"><li class="_list">Fitting a Univariate Linear Regression</li></a>
+
+            </ul>
+      </ul>
+    </div>
+  </section>
+
+<section>  <!-- flex box2 -->
+
+
+
+        <section class="sections correlation">
+            <h1><b>2) Correlation</b></h1>
+            <br>
+                <h3><b>Correlation Matrix</b></h3>
+                <p>To understand the relationship among features (columns), a correlation matrix is very useful in the <u><b> Exploratory data analysis</b></u>. Correlation measures linear relationships between variables. We can construct a correlation matrix to show correlation coefficients between variables. It is symmetric where each element is a correlation coefficient ranging from -1 and 1. A value near 1 (resp. -1) indicates a strong positive (resp. negative) correlation between variables. We can create a correlation matrix using the <b> "corr" </b> function</p>
+                  <br>
+                <div class="set_of_code">
+                      <span id="py_input"> IN [9]: </span>
+                      <span class="code input">
+
+                        <p>corr_matrix<span id="py_operator">=</span>boston.corr().round(<span id="py_num">2</span>)</p>
+                        <p>corr_matrix</p>
+                      </span>
+                </div>
+                <div class="set_of_code">
+                  <span id="py_output_table"> OUT [9]:</span>
+                  <div>
+                <table border="1" class="dataframe">
+                  <thead>
+                    <tr style="text-align: right;">
+                      <th></th>
+                      <th>CRIM</th>
+                      <th>ZN</th>
+                      <th>INDUS</th>
+                      <th>CHAS</th>
+                      <th>NOX</th>
+                      <th>RM</th>
+                      <th>AGE</th>
+                      <th>DIS</th>
+                      <th>RAD</th>
+                      <th>TAX</th>
+                      <th>PTRATIO</th>
+                      <th>B</th>
+                      <th>LSTAT</th>
+                      <th>MEDV</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="row_odd">
+                      <td>CRIM</td>
+                      <td>1.00</td>
+                      <td>-0.20</td>
+                      <td>0.41</td>
+                      <td>-0.06</td>
+                      <td>0.42</td>
+                      <td>-0.22</td>
+                      <td>0.35</td>
+                      <td>-0.38</td>
+                      <td>0.63</td>
+                      <td>0.58</td>
+                      <td>0.29</td>
+                      <td>-0.39</td>
+                      <td>0.46</td>
+                      <td>-0.39</td>
+                    </tr>
+                    <tr>
+                      <td>ZN</td>
+                      <td>-0.20</td>
+                      <td>1.00</td>
+                      <td>-0.53</td>
+                      <td>-0.04</td>
+                      <td>-0.52</td>
+                      <td>0.31</td>
+                      <td>-0.57</td>
+                      <td>0.66</td>
+                      <td>-0.31</td>
+                      <td>-0.31</td>
+                      <td>-0.39</td>
+                      <td>0.18</td>
+                      <td>-0.41</td>
+                      <td>0.36</td>
+                    </tr>
+                    <tr id="row_odd">
+                      <td>INDUS</td>
+                      <td>0.41</td>
+                      <td>-0.53</td>
+                      <td>1.00</td>
+                      <td>0.06</td>
+                      <td>0.76</td>
+                      <td>-0.39</td>
+                      <td>0.64</td>
+                      <td>-0.71</td>
+                      <td>0.60</td>
+                      <td>0.72</td>
+                      <td>0.38</td>
+                      <td>-0.36</td>
+                      <td>0.60</td>
+                      <td>-0.48</td>
+                    </tr>
+                    <tr>
+                      <td>CHAS</td>
+                      <td>-0.06</td>
+                      <td>-0.04</td>
+                      <td>0.06</td>
+                      <td>1.00</td>
+                      <td>0.09</td>
+                      <td>0.09</td>
+                      <td>0.09</td>
+                      <td>-0.10</td>
+                      <td>-0.01</td>
+                      <td>-0.04</td>
+                      <td>-0.12</td>
+                      <td>0.05</td>
+                      <td>-0.05</td>
+                      <td>0.18</td>
+                    </tr>
+                    <tr id="row_odd">
+                      <td>NOX</td>
+                      <td>0.42</td>
+                      <td>-0.52</td>
+                      <td>0.76</td>
+                      <td>0.09</td>
+                      <td>1.00</td>
+                      <td>-0.30</td>
+                      <td>0.73</td>
+                      <td>-0.77</td>
+                      <td>0.61</td>
+                      <td>0.67</td>
+                      <td>0.19</td>
+                      <td>-0.38</td>
+                      <td>0.59</td>
+                      <td>-0.43</td>
+                    </tr>
+                    <tr>
+                      <td>RM</td>
+                      <td>-0.22</td>
+                      <td>0.31</td>
+                      <td>-0.39</td>
+                      <td>0.09</td>
+                      <td>-0.30</td>
+                      <td>1.00</td>
+                      <td>-0.24</td>
+                      <td>0.21</td>
+                      <td>-0.21</td>
+                      <td>-0.29</td>
+                      <td>-0.36</td>
+                      <td>0.13</td>
+                      <td>-0.61</td>
+                      <td>0.70</td>
+                    </tr>
+                    <tr id="row_odd">
+                      <td>AGE</td>
+                      <td>0.35</td>
+                      <td>-0.57</td>
+                      <td>0.64</td>
+                      <td>0.09</td>
+                      <td>0.73</td>
+                      <td>-0.24</td>
+                      <td>1.00</td>
+                      <td>-0.75</td>
+                      <td>0.46</td>
+                      <td>0.51</td>
+                      <td>0.26</td>
+                      <td>-0.27</td>
+                      <td>0.60</td>
+                      <td>-0.38</td>
+                    </tr>
+                    <tr>
+                      <td>DIS</td>
+                      <td>-0.38</td>
+                      <td>0.66</td>
+                      <td>-0.71</td>
+                      <td>-0.10</td>
+                      <td>-0.77</td>
+                      <td>0.21</td>
+                      <td>-0.75</td>
+                      <td>1.00</td>
+                      <td>-0.49</td>
+                      <td>-0.53</td>
+                      <td>-0.23</td>
+                      <td>0.29</td>
+                      <td>-0.50</td>
+                      <td>0.25</td>
+                    </tr>
+                    <tr id="row_odd">
+                      <td>RAD</td>
+                      <td>0.63</td>
+                      <td>-0.31</td>
+                      <td>0.60</td>
+                      <td>-0.01</td>
+                      <td>0.61</td>
+                      <td>-0.21</td>
+                      <td>0.46</td>
+                      <td>-0.49</td>
+                      <td>1.00</td>
+                      <td>0.91</td>
+                      <td>0.46</td>
+                      <td>-0.44</td>
+                      <td>0.49</td>
+                      <td>-0.38</td>
+                    </tr>
+                    <tr>
+                      <td>TAX</td>
+                      <td>0.58</td>
+                      <td>-0.31</td>
+                      <td>0.72</td>
+                      <td>-0.04</td>
+                      <td>0.67</td>
+                      <td>-0.29</td>
+                      <td>0.51</td>
+                      <td>-0.53</td>
+                      <td>0.91</td>
+                      <td>1.00</td>
+                      <td>0.46</td>
+                      <td>-0.44</td>
+                      <td>0.54</td>
+                      <td>-0.47</td>
+                    </tr>
+                    <tr id="row_odd">
+                      <td>PTRATIO</td>
+                      <td>0.29</td>
+                      <td>-0.39</td>
+                      <td>0.38</td>
+                      <td>-0.12</td>
+                      <td>0.19</td>
+                      <td>-0.36</td>
+                      <td>0.26</td>
+                      <td>-0.23</td>
+                      <td>0.46</td>
+                      <td>0.46</td>
+                      <td>1.00</td>
+                      <td>-0.18</td>
+                      <td>0.37</td>
+                      <td>-0.51</td>
+                    </tr>
+                    <tr>
+                      <td>B</td>
+                      <td>-0.39</td>
+                      <td>0.18</td>
+                      <td>-0.36</td>
+                      <td>0.05</td>
+                      <td>-0.38</td>
+                      <td>0.13</td>
+                      <td>-0.27</td>
+                      <td>0.29</td>
+                      <td>-0.44</td>
+                      <td>-0.44</td>
+                      <td>-0.18</td>
+                      <td>1.00</td>
+                      <td>-0.37</td>
+                      <td>0.33</td>
+                    </tr>
+                    <tr id="row_odd">
+                      <td>LSTAT</td>
+                      <td>0.46</td>
+                      <td>-0.41</td>
+                      <td>0.60</td>
+                      <td>-0.05</td>
+                      <td>0.59</td>
+                      <td>-0.61</td>
+                      <td>0.60</td>
+                      <td>-0.50</td>
+                      <td>0.49</td>
+                      <td>0.54</td>
+                      <td>0.37</td>
+                      <td>-0.37</td>
+                      <td>1.00</td>
+                      <td>-0.74</td>
+                    </tr>
+                    <tr>
+                      <td>MEDV</td>
+                      <td>-0.39</td>
+                      <td>0.36</td>
+                      <td>-0.48</td>
+                      <td>0.18</td>
+                      <td>-0.43</td>
+                      <td>0.70</td>
+                      <td>-0.38</td>
+                      <td>0.25</td>
+                      <td>-0.38</td>
+                      <td>-0.47</td>
+                      <td>-0.51</td>
+                      <td>0.33</td>
+                      <td>-0.74</td>
+                      <td>1.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <br>
+        </section>
+
+        <section class="sections data_preparation">
+
+          <h3><b>Data Preparation - Feature Selection</b></h3>
+          <p><b>RM</b> and <b>MEDV</b> are positively correlated. The scatter plot is a useful tool to display the relationship between two features; let’s take a look at the scatter plot: </p>
+          <br>
+          <div class="set_of_code">
+                <span id="py_input"> IN [10]: </span>
+                <span class="code input">
+                  boston.plot(kind<span id=py_operator>=</span><span id="py_char">'scatter'</span>,x<span id=py_operator>=</span><span id="py_char">'RM'</span>,y<span id=py_operator>=</span><span id="py_char">'MED'</span>,figsize<span id=py_operator>=</span>(<span id="py_num">8</span>,<span id="py_num">6</span>))
+                </span>
+          </div>
+          <div class="set_of_code">
+            <span id="py_output"> OUT [10]:</span>
+              <p style="margin-left: 130px; margin-top:-22px;">&ltmatplotlib.axes._subplots.AxesSubplot at 0x11f05520188&gt</p>
+              <img src="images/image1.png" style="margin-left: 110px;" ></img>
+          </div>
+          <p>The price increases as the value of RM increases linearly. There are a few outliers that appear to be outside of the overall pattern. For example, one point on the center right corresponds to a house with almost 9 rooms but a median value slightly above $20K. Homes with similar values usually have around 6 rooms. In addition, the data seems to have a ceiling; that is the maximum median value is capped at 50.
+            <br><br>
+            <p>On the other hand prices tend to decrease with an increase in LSTAT; and the trend isn’t as linear.</p>
+            <br>
+            <div class="set_of_code">
+                  <span id="py_input"> IN [11]: </span>
+                  <span class="code input">
+                    boston.plot(kind<span id=py_operator>=</span><span id="py_char">'scatter'</span>,x<span id=py_operator>=</span><span id="py_char">'LSTAT'</span>,y<span id=py_operator>=</span><span id="py_char">'MED'</span>,figsize<span id=py_operator>=</span>(<span id="py_num">8</span>,<span id="py_num">6</span>))
+                  </span>
+            </div>
+            <div class="set_of_code">
+              <span id="py_output"> OUT [11]:</span>
+                <p style="margin-left: 130px; margin-top:-22px;">&ltmatplotlib.axes._subplots.AxesSubplot at 0x1d74653b3c8</p>
+                <img src="images/image2.png" style="margin-left: 110px;" ></img>
+            </div>
+            <p>Of the two features, <b>RM</b> appears a better choice for predicting <b>MEDV</b>. Thus we start with a <b><u>univariate linear regression:</u> <i>MEDV = b + m * RM.</i></b></p>
+            <br>
+            <p>In scikit-learn, models require a <u><b>two-dimensional feature matrix (X, 2darray or a pandas DataFrame)</b></u> and a <u><b>one-dimensional target array (Y).</b></u></p>
+            <br>
+            <p>Here we define the feature matrix as the column RM in boston and assign it to X. Note the double brackets around 'RM' in the code below, it is to ensure the result remains a DataFrame, a 2-dimensional data structure:</p>
+
+            <div class="set_of_code">
+                  <span id="py_input"> IN [11]: </span>
+                  <span class="code input">
+                    <p>X <span id="py_operator">=</span> boston[[<span id="py_char">'RM'</span>]]</p>
+                    <p><span id="py_num">print</span>(X.shape)</p>
+                  </span>
+            </div>
+            <br>
+            <p style="margin-left:140px;">(506, 1)</p>
+            <div class="set_of_code">
+                  <span id="py_input"> IN [11]: </span>
+                  <span class="code input">
+                    <p>Y<span id="py_operator">=</span>boston[<span id="py_char">'MEDV'</span>]</p>
+                    <p><span id="py_num">print</span>(Y.shape)</p>
+                  </span>
+            </div>
+            <br>
+            <p style="margin-left:140px;">(506, )</p>
+            <br><br>
+            <p>It is ensured as its a 2-Dimentional data structure</p>
+            <br>
+            <p>Recall that the single bracket outputs a Pandas <b>Series</b>, while a double bracket outputs a Pandas <b>DataFrame</b>, and the model expects the feature matrix X to be a <b>2darray</b> and Y to be a <b> Series </b>.</p>
+
+        </section>
+
+
+
+</section>  <!-- flex box2 end -->
+</div>
+
+
+<div class="next_prev_page_button">
+    <a href="../page2/linear_regression_index_page2.html"> <button id="previous_button">Previous</button></a>
+    <a href="../page4/linear_regression_index_page4.html"> <button id="next_button">Next</button></a>
+</div>
+
+
+<div class="footer">
+<h1>Be on touch for more models and projects</h1>
+<div class="mini_media">
+  <a href="https://www.linkedin.com/in/mohamed-ashik-badusha/"><img align="justify" alt="Ashik Linkdin" width="30px" src="https://firebasestorage.googleapis.com/v0/b/github--images.appspot.com/o/Github%20images%2Flinkedin.svg?alt=media&token=0e662ab8-db11-475a-9c43-18d89bcdfde0"/></a>
+  <a href="https://www.instagram.com/p.u.b.g_tamil/"><img align="justify" alt="Ashik Instagram" width="30px" src="https://firebasestorage.googleapis.com/v0/b/github--images.appspot.com/o/Github%20images%2Finstagram-sketched.svg?alt=media&token=ecd87a7d-17b0-464e-8c4f-ec446b86fd51"/></a>
+  <a href="https://github.com/Ashik-Phantom"><img align="justify" alt="Ashik Github" width="30px" src="https://firebasestorage.googleapis.com/v0/b/github--images.appspot.com/o/Github%20images%2F25231.svg?alt=media&token=ef2be627-04a6-4f80-afba-bf224281d35a"/></a>
+</div>
+</div>
+</body>
+</html>
